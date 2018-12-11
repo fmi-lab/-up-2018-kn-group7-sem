@@ -10,9 +10,8 @@ Write a function to find first and last digit of a number.
 Write a function to swap first and last digits of a number.
 Write a function to calculate sum of digits of a number.
 Write a function to find frequency of each digit in a given integer.
-Write a function to find sum of all prime numbers between 1 to n.
+> Write a function to find sum of all prime numbers between 1 to n.
 Write a function to find all prime factors of a number.
-
 Write a function to check whether a number is Armstrong (a.k.a. Narcissistic) number or not. (https://en.wikipedia.org/wiki/Narcissistic_number)
 Write a function to print all Armstrong numbers between 1 to n.
 Write a function to print all Perfect numbers between 1 to n. (https://en.wikipedia.org/wiki/Perfect_number)
@@ -39,8 +38,8 @@ Write a function to merge two array to third array.
 Write a function to find reverse of an array.
 Write a function to put even and odd elements of array in two separate array.
 Write a function to search an element in an array.
-Write a function to sort array elements in ascending or descending order.
-Write a function to sort even and odd elements of array separately.
+> Write a function to sort array elements in ascending or descending order.
+> Write a function to sort even and odd elements of array separately.
 Write a function to left rotate an array.
 Write a function to right rotate an array.
 

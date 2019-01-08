@@ -2,22 +2,39 @@
 
 using namespace std;
 
-bool isValidSquare(int sudoku[9][9], int x, int y) {
+bool isSectionValid(int sudoku[9][9], int indexes[9][2]) {
   int digits[10] = {0};
+  for (int k = 0; k < 9; k++) {
+    int i = indexes[k][0];
+    int j = indexes[k][1];
 
-  for (int i = 0; i < 3; i++) {
-    for (int j = 0; j < 3; j++) {
-      if (sudoku[x + i][y + j] == 0) {
-        continue;
-      }
-      digits[sudoku[x + i][y + j]]++;
-      if (digits[sudoku[x + i][y + j]] > 1) {
+    int digit = sudoku[i][j];
+    if (digit != 0) {
+      digits[digit]++;
+      if (digits[digit] > 1) {
         return false;
       }
     }
   }
-
   return true;
+}
+
+void addIndexes(int indexes[2], int i, int j) {
+  indexes[0] = i;
+  indexes[1] = j;
+}
+
+bool isValidSquare(int sudoku[9][9], int x, int y) {
+  int k = 0;
+  int indexes[9][2];
+
+  for (int i = 0; i < 3; i++) {
+    for (int j = 0; j < 3; j++) {
+      addIndexes(indexes[k++], i, j);
+    }
+  }
+
+  return isSectionValid(sudoku, indexes);
 }
 
 bool hasValidSquares(int sudoku[9][9]) {
@@ -34,35 +51,41 @@ bool hasValidSquares(int sudoku[9][9]) {
   // 6, 0 ... 6, 3 .... 6, 6
 }
 
+bool hasValidCols(int sudoku[9][9], int j) {
+  int indexes[9][2];
+  for (int i = 0; i < 9; i++) {
+    addIndexes(indexes[i], i, j);
+  }
+
+  return isSectionValid(sudoku, indexes);
+}
+
 bool hasValidCols(int sudoku[9][9]) {
   for (int j = 0; j < 9; j++) {
-    int digits[10] = {0};
-    for (int i = 0; i < 9; i++) {
-      if (sudoku[i][j] == 0) {
-        continue;
-      }
-      digits[sudoku[i][j]]++;
-      if (digits[sudoku[i][j]] > 1) {
-        return false;
-      }
+    if (!hasValidCols(sudoku, j)) {
+      return false;
     }
   }
+
   return true;
+}
+
+bool hasValidRow(int sudoku[9][9], int i) {
+  int indexes[9][2];
+  for (int j = 0; j < 9; j++) {
+    addIndexes(indexes[j], i, j);
+  }
+
+  return isSectionValid(sudoku, indexes);
 }
 
 bool hasValidRows(int sudoku[9][9]) {
   for (int i = 0; i < 9; i++) {
-    int digits[10] = {0};
-    for (int j = 0; j < 9; j++) {
-      if (sudoku[i][j] == 0) {
-        continue;
-      }
-      digits[sudoku[i][j]]++;
-      if (digits[sudoku[i][j]] > 1) {
-        return false;
-      }
+    if (!hasValidRow(sudoku, i)) {
+      return false;
     }
   }
+
   return true;
 }
 
@@ -131,6 +154,7 @@ int main() {
     {0, 0, 0,  4, 1, 9,  0, 0, 5},
     {0, 0, 0,  0, 8, 0,  0, 7, 9}
   };
+
   print(sudoku);
   solve(sudoku);
   cout << endl;
